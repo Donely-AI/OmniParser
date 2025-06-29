@@ -1,8 +1,8 @@
 # OmniParser: Screen Parsing tool for Pure Vision Based GUI Agent
 
-<p align="center">
+<!-- <p align="center">
   <img src="imgs/logo.png" alt="Logo">
-</p>
+</p> -->
 <!-- <a href="https://trendshift.io/repositories/12975" target="_blank"><img src="https://trendshift.io/api/badge/repositories/12975" alt="microsoft%2FOmniParser | Trendshift" style="width: 250px; height: 55px;" width="250" height="55"/></a> -->
 
 [![arXiv](https://img.shields.io/badge/Paper-green)](https://arxiv.org/abs/2408.00203)
