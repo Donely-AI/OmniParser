@@ -1,12 +1,26 @@
 FROM runpod/base:0.6.3-cuda11.8.0
 
-# Install Python 3.12 and set it as default
-RUN apt-get update && apt-get install -y software-properties-common && \
-    add-apt-repository ppa:deadsnakes/ppa && \
+# Update package lists and install dependencies
+RUN apt-get update && apt-get install -y \
+    software-properties-common \
+    wget \
+    curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python 3.12 from deadsnakes PPA
+RUN add-apt-repository ppa:deadsnakes/ppa -y && \
     apt-get update && \
-    apt-get install -y python3.12 python3.12-pip python3.12-venv python3.12-dev && \
-    ln -sf $(which python3.12) /usr/local/bin/python && \
-    ln -sf $(which python3.12) /usr/local/bin/python3
+    apt-get install -y \
+    python3.12 \
+    python3.12-pip \
+    python3.12-venv \
+    python3.12-dev \
+    python3.12-distutils \
+    && rm -rf /var/lib/apt/lists/*
+
+# Set Python 3.12 as the default python
+RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1 && \
+    update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
 
 # Install huggingface-cli for downloading models
 RUN python -m pip install --upgrade pip && \
