@@ -9,19 +9,24 @@ RUN apt-get update && apt-get install -y \
     python3.12-dev \
     python3.12-venv \
     python3-pip \
+    python3-distutils \
+    python3-setuptools \
+    build-essential \
+    pkg-config \
     && rm -rf /var/lib/apt/lists/*
 
 # Set Python 3.12 as the default python
 RUN update-alternatives --install /usr/bin/python python /usr/bin/python3.12 1 && \
     update-alternatives --install /usr/bin/python3 python3 /usr/bin/python3.12 1
 
-# Install pip for Python 3.12
+# Install pip for Python 3.12 and ensure setuptools/distutils are available
 RUN python3.12 -m ensurepip --upgrade || \
     (wget https://bootstrap.pypa.io/get-pip.py && python3.12 get-pip.py && rm get-pip.py)
 
+RUN python -m pip install --upgrade pip setuptools wheel
+
 # Install huggingface-cli for downloading models
-RUN python -m pip install --upgrade pip && \
-    python -m pip install huggingface_hub[cli]
+RUN python -m pip install huggingface_hub[cli]
 
 # Set working directory
 WORKDIR /app
