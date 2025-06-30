@@ -26,7 +26,7 @@ COPY . /app/
 
 # Create weights directory and download model checkpoints
 RUN mkdir -p weights && \
-    for f in icon_detect/train_args.yaml icon_detect/model.pt icon_detect/model.yaml icon_caption/config.json icon_caption/generation_config.json icon_caption/model.safetensors; do \
+    for f in icon_detect/{train_args.yaml,model.pt,model.yaml} icon_caption/{config.json,generation_config.json,model.safetensors}; do \
         huggingface-cli download microsoft/OmniParser-v2.0 "$f" --local-dir weights; \
     done
 
